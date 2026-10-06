@@ -1,4 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-html { scroll-behavior: smooth; }
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+  body { @apply bg-stone text-ink font-sans antialiased; }
+  h1, h2, h3 { text-wrap: balance; }
+  :focus-visible { outline: 2px solid #C4A062; outline-offset: 2px; }
+}
+
+@layer components {
+  .container-x { @apply max-w-7xl mx-auto px-4 sm:px-6; }
+  .eyebrow { @apply text-[11px] uppercase tracking-[0.22em] font-medium; }
+
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full font-medium whitespace-nowrap transition duration-200 active:scale-[0.97]; }
+  .btn-gold { @apply bg-gold text-ink hover:bg-gold-light; }
+  .btn-dark { @apply bg-ink text-cream hover:bg-char; }
+  .btn-outline { @apply border border-ink/70 text-ink hover:bg-ink hover:text-cream; }
+  .btn-outline-light { @apply border border-cream/35 text-cream hover:border-gold-light hover:text-gold-light; }
+  .btn-wa { @apply bg-wa text-white hover:bg-wa-dark; }
+
+  .card { @apply bg-white border border-line rounded-2xl; }
+  .chip { @apply rounded-full border border-line bg-white px-4 py-2 text-sm text-ink transition hover:border-ink; }
+  .chip-on { @apply bg-ink border-ink text-cream hover:border-ink; }
+
+  .field { @apply w-full rounded-xl border border-line bg-white px-4 py-3 text-base outline-none transition placeholder:text-muted/70 focus:border-gold-dark focus:ring-2 focus:ring-gold/25; }
+
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}
+
+/* entrance + reveal motion: subtle, disabled for reduced-motion users */
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+.fade-in { animation: fadeIn 0.4s ease both; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+.img-zoom img { transition: transform 0.7s ease; }
+.img-zoom:hover img { transform: scale(1.04); }
+.ph { background: linear-gradient(135deg, #2a2621, #3b342b); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}
